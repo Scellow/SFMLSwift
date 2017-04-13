@@ -9,8 +9,9 @@ This is a work in progress, it works, but it's incomplete
 Make sure you have csfml installed!
 
 
-macOS: ``brew install csfml`` 
-ubuntu: ``apt install csfml`` 
+* macOS: ``brew install csfml`` 
+
+* ubuntu: ``apt install csfml`` 
 
 In order to find the C headers and libs, we need to compile with the following command: 
 
