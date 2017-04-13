@@ -25,4 +25,29 @@ If you are unable to find the ``.build`` folder, wich is hidden by default, just
 
 # Screenshot
 
+```swift
+import Foundation
+import CSFML
+import SFML
+
+let width = 800
+let height = 600
+let window = RenderWindow(title: "SFML Swift", width: width, height: height)
+window.setFramerateLimit(value: 60)
+
+while window.isOpen()
+{
+    window.pollEvent()
+    {
+        event in
+        if event.isClosed
+        {
+            window.close()
+        }
+    }
+    window.clear(color: Color.fromRGB(red: 55, green: 0, blue: 0))
+    window.display()
+}
+```
+
 ![screen](http://i.imgur.com/V0npXJE.png)
