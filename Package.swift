@@ -1,7 +1,7 @@
 import PackageDescription
 
 let package = Package(
-        name: "Realm",
+        name: "SFMLSwift",
         targets: [
                 Target(name: "SFML", dependencies: []),
                 Target(name: "Sample", dependencies:["SFML"]),
