@@ -27,7 +27,6 @@ If you are unable to find the ``.build`` folder, wich is hidden by default, just
 
 ```swift
 import Foundation
-import CSFML
 import SFML
 
 let width = 800
