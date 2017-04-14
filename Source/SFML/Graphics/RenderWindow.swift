@@ -1,68 +1,49 @@
 import Foundation
 import CSFML
 
-public class RenderWindow: RenderTarget
+public class RenderWindow: Window, RenderTarget
 {
-    private(set) var width: Int
-    private(set) var height: Int
-    private(set) var bitsPerPixel: Int
-    private(set) var title: String
-    private var window: OpaquePointer
 
-    public init(title: String, width: Int, height: Int, bitsPerPixel: Int, style: VideoStyle)
+    public init(mode: VideoMode, title: String, style: VideoStyle)
     {
-        self.title = title
-        self.width = width
-        self.height = height
-        self.bitsPerPixel = bitsPerPixel
-        let mode = sfVideoMode(width: UInt32(width), height: UInt32(height), bitsPerPixel: UInt32(bitsPerPixel))
-        window = sfRenderWindow_create(mode, title, style.rawValue, nil)
+        // TODO: not sure about this
+        super.init(handle: sfRenderWindow_create(mode.ptr, title, style.rawValue, nil))
     }
 
-    public convenience init(title: String, width: Int, height: Int, style: VideoStyle)
+    public override func isOpen() -> Bool
     {
-        self.init(title: title, width: width, height: height, bitsPerPixel: 32, style: style)
+        return Bool(NSNumber(value: sfRenderWindow_isOpen(ptr)))
     }
 
-    public convenience init(title: String, width: Int, height: Int)
+    public override func close()
     {
-        self.init(title: title, width: width, height: height, bitsPerPixel: 32, style: .Default)
+        sfRenderWindow_close(ptr)
     }
 
-    public func isOpen() -> Bool
+    public override func setFramerateLimit(value: Int)
     {
-        return Bool(NSNumber(value: sfRenderWindow_isOpen(window)))
+        sfRenderWindow_setFramerateLimit(ptr, UInt32(value))
     }
 
-    public func close()
+    public override func setTitle(value: String)
     {
-        sfRenderWindow_close(window)
-    }
-
-    public func setFramerateLimit(value: Int)
-    {
-        sfRenderWindow_setFramerateLimit(window, UInt32(value))
-    }
-
-    public func setTitle(value: String)
-    {
-        sfRenderWindow_setTitle(window, value)
+        sfRenderWindow_setTitle(ptr, value)
     }
 
     public func clear(color: Color = Color.black)
     {
-        sfRenderWindow_clear(window, sfColor(r: color.r,g: color.g,b: color.b,a: color.a))
+        sfRenderWindow_clear(ptr, color.ptr)
     }
 
-    public func display()
+    public override func display()
     {
-        sfRenderWindow_display(window)
+        sfRenderWindow_display(ptr)
     }
 
-    public func pollEvent(completionHandler: (_ event: sfEvent) -> Void)
+    public override func pollEvent(completionHandler: (_ event: sfEvent) -> Void)
     {
         var eventCatch: sfEvent = sfEvent()
-        while (sfRenderWindow_pollEvent(window, &eventCatch) == 1)
+        while (sfRenderWindow_pollEvent(ptr, &eventCatch) == 1)
         {
             completionHandler(eventCatch)
         }
@@ -72,15 +53,15 @@ public class RenderWindow: RenderTarget
     {
         if let draw = drawable as? Shape
         {
-            sfRenderWindow_drawShape(window, draw.shape, nil)
+            sfRenderWindow_drawShape(ptr, draw.shape, nil)
         } else if let draw = drawable as? Text
         {
-            sfRenderWindow_drawText(window, draw.text, nil)
+            sfRenderWindow_drawText(ptr, draw.text, nil)
         }
     }
 
     deinit
     {
-        sfWindow_destroy(window)
+        sfWindow_destroy(ptr)
     }
 }

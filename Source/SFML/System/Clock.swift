@@ -3,25 +3,25 @@ import CSFML
 
 public class Clock
 {
-    private var clock: OpaquePointer
+    private var ptr: OpaquePointer
 
     public init()
     {
-        clock = sfClock_create()
+        ptr = sfClock_create()
     }
 
     public func getElapsedTime() -> sfTime
     {
-        return sfClock_getElapsedTime(clock)
+        return sfClock_getElapsedTime(ptr)
     }
 
     public func restart() -> sfTime
     {
-        return sfClock_restart(clock)
+        return sfClock_restart(ptr)
     }
 
     deinit
     {
-        sfClock_destroy(clock)
+        sfClock_destroy(ptr)
     }
 }
