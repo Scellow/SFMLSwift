@@ -24,9 +24,9 @@ public struct ContextSettings
         {
             return ptr.depthBits
         }
-        set(newValue)
+        set(value)
         {
-            ptr.depthBits = newValue
+            ptr.depthBits = value
         }
     }
     public var stencilBits: UInt32
@@ -35,9 +35,9 @@ public struct ContextSettings
         {
             return ptr.stencilBits
         }
-        set(newValue)
+        set(value)
         {
-            ptr.stencilBits = newValue
+            ptr.stencilBits = value
         }
     }
     public var antialiasingLevel: UInt32
@@ -46,9 +46,9 @@ public struct ContextSettings
         {
             return ptr.antialiasingLevel
         }
-        set(newValue)
+        set(value)
         {
-            ptr.antialiasingLevel = newValue
+            ptr.antialiasingLevel = value
         }
     }
     public var majorVersion: UInt32
@@ -57,9 +57,9 @@ public struct ContextSettings
         {
             return ptr.majorVersion
         }
-        set(newValue)
+        set(value)
         {
-            ptr.majorVersion = newValue
+            ptr.majorVersion = value
         }
     }
     public var minorVersion: UInt32
@@ -68,9 +68,9 @@ public struct ContextSettings
         {
             return ptr.minorVersion
         }
-        set(newValue)
+        set(value)
         {
-            ptr.minorVersion = newValue
+            ptr.minorVersion = value
         }
     }
     public var attributeFlags: Attribute
@@ -79,9 +79,9 @@ public struct ContextSettings
         {
             return Attribute(rawValue: ptr.attributeFlags)
         }
-        set(newValue)
+        set(value)
         {
-            ptr.attributeFlags = newValue.rawValue
+            ptr.attributeFlags = value.rawValue
         }
     }
     public var sRgbCapable: Bool
@@ -90,9 +90,9 @@ public struct ContextSettings
         {
             return ptr.sRgbCapable == 1 ? true : false
         }
-        set(newValue)
+        set(value)
         {
-            ptr.sRgbCapable = newValue ? 1 : 0
+            ptr.sRgbCapable = value ? 1 : 0
         }
     }
 

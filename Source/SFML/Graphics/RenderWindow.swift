@@ -3,6 +3,25 @@ import CSFML
 
 public class RenderWindow: Window, RenderTarget
 {
+    public override var framerate: Int
+    {
+        get { return _framerate }
+        set(value)
+        {
+            _framerate = value
+            sfRenderWindow_setFramerateLimit(ptr, UInt32(value))
+        }
+    }
+
+    public override var title: String
+    {
+        get { return _title }
+        set(value)
+        {
+            _title = value
+            sfRenderWindow_setTitle(ptr, value)
+        }
+    }
 
     public init(mode: VideoMode, title: String, style: VideoStyle)
     {
@@ -18,16 +37,6 @@ public class RenderWindow: Window, RenderTarget
     public override func close()
     {
         sfRenderWindow_close(ptr)
-    }
-
-    public override func setFramerateLimit(value: Int)
-    {
-        sfRenderWindow_setFramerateLimit(ptr, UInt32(value))
-    }
-
-    public override func setTitle(value: String)
-    {
-        sfRenderWindow_setTitle(ptr, value)
     }
 
     public func clear(color: Color = Color.black)

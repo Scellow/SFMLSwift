@@ -5,42 +5,41 @@ public struct VideoMode
 {
     public var ptr: sfVideoMode
 
-    public var width: UInt32
+    public var width: UInt
     {
         get
         {
-            return ptr.width
+            return UInt(ptr.width)
         }
-        set(newValue)
+        set(value)
         {
-            ptr.width = newValue
+            ptr.width = UInt32(value)
         }
     }
 
-    public var height: UInt32
+    public var height: UInt
     {
         get
         {
-            return ptr.height
+            return UInt(ptr.height)
         }
-        set(newValue)
+        set(value)
         {
-            ptr.height = newValue
+            ptr.width = UInt32(value)
         }
     }
 
-    public var bitsPerPixel: UInt32
+    public var bitsPerPixel: UInt
     {
         get
         {
-            return ptr.bitsPerPixel
+            return UInt(ptr.bitsPerPixel)
         }
-        set(newValue)
+        set(value)
         {
-            ptr.bitsPerPixel = newValue
+            ptr.bitsPerPixel = UInt32(value)
         }
     }
-
 
     public init(width: Int, height: Int, bpp: Int = 32)
     {
@@ -50,7 +49,30 @@ public struct VideoMode
 
 public class Window
 {
+    var _framerate: Int = 0
+    var _title: String = ""
+
     public var ptr: OpaquePointer
+
+    public var framerate: Int
+    {
+        get { return _framerate }
+        set(value)
+        {
+            _framerate = value
+            sfWindow_setFramerateLimit(ptr, UInt32(value))
+        }
+    }
+
+    public var title: String
+    {
+        get { return _title }
+        set(value)
+        {
+            _title = value
+            sfWindow_setTitle(ptr, value)
+        }
+    }
 
     init(mode: VideoMode, title: String, style: VideoStyle, settings: ContextSettings? = nil)
     {
@@ -90,48 +112,4 @@ public class Window
     {
         sfWindow_display(ptr)
     }
-
-    public func setTitle(value: String)
-    {
-        sfWindow_setTitle(ptr, value)
-    }
-
-    public func setFramerateLimit(value: Int)
-    {
-        sfWindow_setFramerateLimit(ptr, UInt32(value))
-    }
-    /*
-        static extern IntPtr sfWindow_create(VideoMode Mode, string Title, Styles Style, ref ContextSettings Params);
-        static extern IntPtr sfWindow_createUnicode(VideoMode Mode, IntPtr Title, Styles Style, ref ContextSettings Params);
-        static extern IntPtr sfWindow_createFromHandle(IntPtr Handle, ref ContextSettings Params);
-        static extern void sfWindow_destroy(IntPtr CPointer);
-        static extern bool sfWindow_isOpen(IntPtr CPointer);
-        static extern void sfWindow_close(IntPtr CPointer);
-        static extern bool sfWindow_pollEvent(IntPtr CPointer, out Event Evt);
-        static extern bool sfWindow_waitEvent(IntPtr CPointer, out Event Evt);
-        static extern void sfWindow_display(IntPtr CPointer);
-        static extern ContextSettings sfWindow_getSettings(IntPtr CPointer);
-        static extern Vector2i sfWindow_getPosition(IntPtr CPointer);
-        static extern void sfWindow_setPosition(IntPtr CPointer, Vector2i position);
-        static extern Vector2u sfWindow_getSize(IntPtr CPointer);
-        static extern void sfWindow_setSize(IntPtr CPointer, Vector2u size);
-        static extern void sfWindow_setTitle(IntPtr CPointer, string title);
-        static extern void sfWindow_setUnicodeTitle(IntPtr CPointer, IntPtr title);
-        unsafe static extern void sfWindow_setIcon(IntPtr CPointer, uint Width, uint Height, byte* Pixels);
-        static extern void sfWindow_setVisible(IntPtr CPointer, bool visible);
-        static extern void sfWindow_setMouseCursorVisible(IntPtr CPointer, bool Show);
-        static extern void sfWindow_setMouseCursorGrabbed(IntPtr CPointer, bool grabbed);
-        static extern void sfWindow_setVerticalSyncEnabled(IntPtr CPointer, bool Enable);
-        static extern void sfWindow_setKeyRepeatEnabled(IntPtr CPointer, bool Enable);
-        static extern bool sfWindow_setActive(IntPtr CPointer, bool Active);
-        static extern void sfWindow_setFramerateLimit(IntPtr CPointer, uint Limit);
-        static extern uint sfWindow_getFrameTime(IntPtr CPointer);
-        static extern void sfWindow_setJoystickThreshold(IntPtr CPointer, float Threshold);
-        static extern IntPtr sfWindow_getSystemHandle(IntPtr CPointer);
-        static extern void sfWindow_requestFocus(IntPtr CPointer);
-        static extern bool sfWindow_hasFocus(IntPtr CPointer);
-        static extern Vector2i sfMouse_getPosition(IntPtr CPointer);
-        static extern void sfMouse_setPosition(Vector2i position, IntPtr CPointer);
-        static extern Vector2i sfTouch_getPosition(uint Finger, IntPtr RelativeTo);
-    */
 }

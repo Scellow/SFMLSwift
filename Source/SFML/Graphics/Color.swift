@@ -35,22 +35,22 @@ public struct Color
     public var r: UInt8
     {
         get { return ptr.r }
-        set(newR) { ptr.r = newR }
+        set(value) { ptr.r = value }
     }
     public var g: UInt8
     {
         get { return ptr.g }
-        set(newG) { ptr.g = newG }
+        set(value) { ptr.g = value }
     }
     public var b: UInt8
     {
         get { return ptr.b }
-        set(newB) { ptr.b = newB }
+        set(value) { ptr.b = value }
     }
     public var a: UInt8
     {
         get { return ptr.a }
-        set(newA) { ptr.a = newA }
+        set(value) { ptr.a = value }
     }
 
     public init(r: UInt8 = 0, g: UInt8 = 0, b: UInt8 = 0, a: UInt8 = 255)

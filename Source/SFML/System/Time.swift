@@ -1,37 +1,42 @@
 import Foundation
 import CSFML
 
-public extension sfTime
+public struct Time
 {
-    var seconds: Float
+    var ptr: sfTime
+
+    public var seconds: Float
     {
-        get
-        {
-            return sfTime_asSeconds(self)
-        }
-    }
-    var milliseconds: Int
-    {
-        return Int(sfTime_asMilliseconds(self))
+        return sfTime_asSeconds(self.ptr)
     }
 
-    var microseconds: Int
+    public var milliseconds: Int
     {
-        return Int(sfTime_asMicroseconds(self))
+        return Int(sfTime_asMilliseconds(self.ptr))
+    }
+
+    public var microseconds: Int
+    {
+        return Int(sfTime_asMicroseconds(self.ptr))
     }
 
     init(seconds: Float)
     {
-        self = sfSeconds(seconds)
+        self.ptr = sfSeconds(seconds)
     }
 
     init(milliseconds: Int)
     {
-        self = sfMilliseconds(Int32(milliseconds))
+        self.ptr = sfMilliseconds(Int32(milliseconds))
     }
 
     init(microseconds: Int)
     {
-        self = sfMicroseconds(Int64(microseconds))
+        self.ptr = sfMicroseconds(Int64(microseconds))
+    }
+
+    init(time: sfTime)
+    {
+        self.ptr = time
     }
 }

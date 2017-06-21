@@ -8,14 +8,27 @@ enum TextureError: Error
 
 public class Texture
 {
-    var texture: OpaquePointer? = nil
+    var ptr: OpaquePointer? = nil
 
-    public init(file: String) throws
+    public init(ptr: OpaquePointer?)
     {
-        texture = sfTexture_createFromFile(file, nil)
-        guard texture != nil else
+        self.ptr = ptr
+    }
+
+    public init(file: String, area: IntRect = IntRect()) throws
+    {
+        var a = area;
+        ptr = sfTexture_createFromFile(file, &a.ptr)
+        guard ptr != nil else
         {
             throw TextureError.FileNotExist
         }
     }
+
+    deinit
+    {
+        sfTexture_destroy(ptr)
+    }
+
+
 }
