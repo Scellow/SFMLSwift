@@ -8,18 +8,19 @@ enum FontError: Error
 
 public class Font
 {
-    private(set) var font: OpaquePointer?
-    init(file: String) throws
+    var ptr: OpaquePointer? = nil
+
+    public init(file: String) throws
     {
-        font = sfFont_createFromFile(file)
-        guard font != nil else
+        ptr = sfFont_createFromFile(file)
+        guard ptr != nil else
         {
             throw FontError.FileNotExist
         }
     }
 
-    func getInfo() -> sfFontInfo
+    deinit
     {
-        return sfFont_getInfo(font)
+        sfFont_destroy(ptr)
     }
 }

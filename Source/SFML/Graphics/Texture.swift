@@ -10,6 +10,11 @@ public class Texture
 {
     var ptr: OpaquePointer? = nil
 
+    public var size: Vector2u
+    {
+        return Vector2u(ptr: sfTexture_getSize(ptr!))
+    }
+
     public init(ptr: OpaquePointer?)
     {
         self.ptr = ptr

@@ -4,6 +4,7 @@ import CSFML
 public struct TextStyle: OptionSet
 {
     public let rawValue: UInt32
+
     public init(rawValue: UInt32)
     {
         self.rawValue = rawValue
@@ -18,83 +19,95 @@ public struct TextStyle: OptionSet
 
 public class Text: Transformable, Drawable
 {
-    private(set) var text: OpaquePointer
+    var ptr: OpaquePointer
+
     public var position: (Float, Float)
     {
         get
         {
-            let vector = sfText_getPosition(text)
+            let vector = sfText_getPosition(ptr)
             return (vector.x, vector.y)
-        }set
-    {
-        let vector = sfVector2f(x: newValue.0, y: newValue.1)
-        sfText_setPosition(text, vector)
+        }
+        set
+        {
+            let vector = sfVector2f(x: newValue.0, y: newValue.1)
+            sfText_setPosition(ptr, vector)
+        }
     }
-    }
+
     public var rotation: Float
     {
         get
         {
-            return sfText_getRotation(text)
-        }set
-    {
-        sfText_setRotation(text, newValue)
+            return sfText_getRotation(ptr)
+        }
+        set
+        {
+            sfText_setRotation(ptr, newValue)
+        }
     }
-    }
+
     public var scale: (Float, Float)
     {
         get
         {
-            let vector = sfText_getScale(text)
+            let vector = sfText_getScale(ptr)
             return (vector.x, vector.y)
-        }set
-    {
-        let vector = sfVector2f(x: newValue.0, y: newValue.1)
-        sfText_setScale(text, vector)
+        }
+        set
+        {
+            let vector = sfVector2f(x: newValue.0, y: newValue.1)
+            sfText_setScale(ptr, vector)
+        }
     }
-    }
+
     public var origin: (Float, Float)
     {
         get
         {
-            let vector = sfText_getOrigin(text)
+            let vector = sfText_getOrigin(ptr)
             return (vector.x, vector.y)
-        }set
-    {
-        let vector = sfVector2f(x: newValue.0, y: newValue.1)
-        sfText_setOrigin(text, vector)
+        }
+        set
+        {
+            let vector = sfVector2f(x: newValue.0, y: newValue.1)
+            sfText_setOrigin(ptr, vector)
+        }
     }
-    }
+
     public var color: sfColor
     {
         get
         {
-            return sfText_getColor(text)
-        }set
-    {
-        sfText_setColor(text, newValue)
+            return sfText_getColor(ptr)
+        }
+        set
+        {
+            sfText_setColor(ptr, newValue)
+        }
     }
-    }
+
     public var style: TextStyle
     {
         get
         {
-            return TextStyle(rawValue: sfText_getStyle(text))
-        }set
-    {
-        sfText_setStyle(text, newValue.rawValue)
-    }
+            return TextStyle(rawValue: sfText_getStyle(ptr))
+        }
+        set
+        {
+            sfText_setStyle(ptr, newValue.rawValue)
+        }
     }
 
     public var characterSize: Int
     {
         get
         {
-            return Int(sfText_getCharacterSize(text))
+            return Int(sfText_getCharacterSize(ptr))
         }
         set
         {
-            sfText_setCharacterSize(text, UInt32(newValue))
+            sfText_setCharacterSize(ptr, UInt32(newValue))
         }
     }
 
@@ -102,39 +115,41 @@ public class Text: Transformable, Drawable
     {
         get
         {
-            return String(describing: sfText_getString(text))
+            return String(describing: sfText_getString(ptr))
         }
         set
         {
-            return sfText_setString(text, newValue)
+            return sfText_setString(ptr, newValue)
         }
     }
+
     init(string: String, font: Font)
     {
-        text = sfText_create()
-        sfText_setFont(text, font.font)
-        sfText_setString(text, string)
+        ptr = sfText_create()
+        sfText_setFont(ptr, font.ptr)
+        sfText_setString(ptr, string)
         //sfText_setColor(text,sfColor.redColor())
     }
 
     public func move(offsetX: Float, offsetY: Float)
     {
         let vector = sfVector2f(x: offsetX, y: offsetY)
-        sfText_move(text, vector)
+        sfText_move(ptr, vector)
     }
 
     public func rotate(angle: Float)
     {
-        sfText_rotate(text, angle)
+        sfText_rotate(ptr, angle)
     }
 
     public func scale(factorX: Float, factorY: Float)
     {
         let vector = sfVector2f(x: factorX, y: factorY)
-        sfText_scale(text, vector)
+        sfText_scale(ptr, vector)
     }
 
-    public func draw(target: RenderTarget)
+    public func draw(target: RenderTarget, states: RenderStates)
     {
+
     }
 }

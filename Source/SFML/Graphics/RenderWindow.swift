@@ -60,13 +60,13 @@ public class RenderWindow: Window, RenderTarget
 
     public func draw(drawable: Drawable)
     {
-        if let draw = drawable as? Shape
-        {
-            sfRenderWindow_drawShape(ptr, draw.shape, nil)
-        } else if let draw = drawable as? Text
-        {
-            sfRenderWindow_drawText(ptr, draw.text, nil)
-        }
+        //if let draw = drawable as? Shape
+        //{
+        //    sfRenderWindow_drawShape(ptr, draw.shape, nil)
+        //} else if let draw = drawable as? Text
+        //{
+        //    sfRenderWindow_drawText(ptr, draw.ptr, nil)
+        //}
     }
 
     deinit

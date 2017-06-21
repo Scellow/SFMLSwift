@@ -28,6 +28,11 @@ public struct Vector2u
 {
     public var ptr = sfVector2u()
 
+    public init(ptr: sfVector2u)
+    {
+        self.ptr = ptr
+    }
+
     public init(x: UInt = 0, y: UInt = 0)
     {
         self.x = x
