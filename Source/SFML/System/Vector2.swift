@@ -5,6 +5,12 @@ public struct Vector2i
 {
     public var ptr = sfVector2i()
 
+    public init(x: Int = 0, y: Int = 0)
+    {
+        self.x = x
+        self.y = y
+    }
+
     public var x: Int
     {
         get { return Int(ptr.x) }
@@ -21,6 +27,12 @@ public struct Vector2i
 public struct Vector2u
 {
     public var ptr = sfVector2u()
+
+    public init(x: UInt = 0, y: UInt = 0)
+    {
+        self.x = x
+        self.y = y
+    }
 
     public var x: UInt
     {
@@ -41,7 +53,8 @@ public struct Vector2f
 
     public init(x: Float = 0.0, y: Float = 0.0)
     {
-
+        self.x = x
+        self.y = y
     }
 
     public var x: Float
